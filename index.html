@@ -1,0 +1,189 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title></title>
+          <meta name="description" content="" />
+          <meta name="keywords" content="" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="lib/jquery.js"></script>
+      <script type="text/javascript" src="lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="lib/index.js"></script>
+      <script type="text/javascript" src="index.js"></script>
+      <script type="text/javascript" src="lib/scheduler.js"></script>
+      <script type="text/javascript" src="lib/template.js"></script>
+      <script type="text/javascript" src="lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title"><span id="doc-version"></span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 current" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">root</span>
+      </span>
+      
+      
+    </li><li name="_root_.intersection" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="intersection"></a><a id="intersection:intersection"></a>
+      <span class="permalink">
+      <a href="index.html#intersection" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Using HLists as flat representation of intersection types." href="intersection/index.html">
+              <span class="name">intersection</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">Using HLists as flat representation of intersection types.</p><div class="fullcomment"><div class="comment cmt"><p>Using HLists as flat representation of intersection types.</p><h4>Overview</h4><p>A value of the intersection type <code>A &amp; B</code> can be used both as
+a value of type <code>A</code> as well as a value of type <code>B</code>. Given the
+two functions</p><pre><span class="kw">def</span> f(x: <span class="std">Int</span>): <span class="std">String</span> = x.toString
+<span class="kw">def</span> g(x: <span class="std">Boolean</span>): <span class="std">String</span> = <span class="kw">if</span> (x) <span class="lit">"hello"</span> <span class="kw">else</span> <span class="lit">"world"</span></pre><p>a value <code>foo: Int &amp; Boolean</code> can be passed to both functions
+<code>f</code> and <code>g</code>. Using Scala's intersection types, which are
+backed by Java interfaces / classes we cannot obtain a
+value of type <code>Int with Boolean</code>. In addition, given an
+integer and a boolean, we cannot create such a value at runtime.</p><p>This library allows to do both by representing a value which
+is of type <code>Int</code> and of type <code>Boolean</code> as the type-level list
+<code>Int :: Boolean :: HNil</code>. Merging an integer with a boolean
+value simply amounts to storing them in a (h)list.</p><h4>Usage</h4><p>Since we use the hlist implementation of shapeless as backing data structure
+you need to also include shapeless as dependency and import the hlist
+operations:</p><pre><span class="kw">import</span> shapeless._
+<span class="kw">import</span> ops.hlist._</pre><p>Now, given two values of intersection types we can apply merge them
+to obtain the intersection:</p><pre><span class="kw">val</span> x: <span class="std">Int</span> :: HNil = <span class="num">42</span> :: HNil
+<span class="kw">val</span> y: <span class="std">Boolean</span> :: HNil = <span class="kw">false</span> :: HNil
+
+<span class="kw">val</span> both: <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil = x &amp; y
+
+println(f(both.select[<span class="std">Int</span>]) + <span class="lit">" "</span> + g(both.select[<span class="std">Boolean</span>]))</pre><p>As you notice, the projection into the intersection type has to be
+explicitly selected at the moment. The same is true for subtyping
+relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
+in an intersection (also see wellformedness, <a href="intersection/package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
+of elements in the HLists can be arbitrary, effectively
+implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
+considered a wellformed intersection type. The alternative would be to also
+allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
+of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
+This is a consequence of Selector being defined invariant in shapeless.
+</p></div></div>
+    </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="package value">
+      <div id="definition">
+        <div class="big-circle package">p</div>
+        
+        <h1>root package<span class="permalink">
+      <a href="index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">root</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

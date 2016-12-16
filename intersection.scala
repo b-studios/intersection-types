@@ -155,12 +155,73 @@ package object intersection {
     def coerce[L2 <: HList](implicit s: L2 ≺ L1): L2 = s(self)
   }
 
-  sealed trait Merge[L1 <: HList, L2 <: HList] {
+  implicit def autoProject[T, L <: HList](l: L)(implicit s: T ∈ L): T = s(l)
+
+  implicit def autoLift[T](t: T): T :: HNil = t :: HNil
+
+  // Contravariant merge: Intersection types in negative positions.
+  //
+  // Behaves similar to a "join" - it is not a problem
+  // if a member does occur in both of the components. CoMerge is just Setunion
+  // of L1 and L2.
+
+  /**
+   * Type-class witnessing a common super (intersection) type of `L1` and `L2`.
+   *
+   * An instance of this type-class allows projection of `Out` to both `L1` and `L2`.
+   *
+   * The resulting type `Out` will be similar to the result of a merge. However,
+   * with `Join` it is not a problem if a member does occur in both of the
+   * components. In this case `Join` just behaves like set-union of `L1` and `L2`
+   */
+  sealed trait Join[L1 <: HList, L2 <: HList] {
     type Out <: HList
-    def apply(l1: L1, l2: L2): Out
     def left: L1 ≺ Out
     def right: L2 ≺ Out
   }
+  type ^[L1 <: HList, L2 <: HList] = Join[L1, L2]
+
+  object Join {
+    type Aux[L1 <: HList, L2 <: HList, Out0 <: HList] = Join[L1, L2] { type Out = Out0 }
+
+    // For the proof term, here it is easier to deal with empty intersection types
+    implicit def nilJoin[L <: HList]: Join.Aux[HNil, L, L]
+      = new Join[HNil, L] {
+        type Out = L
+        def left  = Subtype.witness(_ => HNil)
+        def right = Subtype.witness(l => l)
+      }
+
+    implicit def consJoin2[H, L1 <: HList, L2 <: HList, L3 <: HList](implicit
+             wf1: WF[H :: L1],  wf2: WF[L2],
+              r: Remove.Aux[L2, H, (H, L3)],
+                   m: Join[L1, L3]
+      //  ---------------------------------------
+    ):    Join.Aux[H :: L1, L2, H :: m.Out]
+
+      = new Join[H :: L1, L2] {
+        type Out = H :: m.Out
+        def left  = Subtype.witness { l => l.head :: m.left(l.tail) }
+        def right = Subtype.witness { l => r.reinsert((l.head, m.right(l.tail))) }
+      }
+
+    implicit def consJoin1[H, L1 <: HList, L2 <: HList](implicit
+          notIn: H ∉ L2,  m: Join[L1, L2]
+    //  ---------------------------------------
+    ):    Join.Aux[H :: L1, L2, H :: m.Out]
+
+      = new Join[H :: L1, L2] {
+        type Out = H :: m.Out
+        def left  = Subtype.witness { l => l.head :: m.left(l.tail) }
+        def right = Subtype.witness { l => m.right(l.tail) }
+      }
+  }
+
+  sealed trait Merge[L1 <: HList, L2 <: HList] extends Join[L1, L2] {
+    type Out <: HList
+    def apply(l1: L1, l2: L2): Out
+  }
+  type &[L1 <: HList, L2 <: HList] = Merge[L1, L2]
 
   object Merge {
     type Aux[L1 <: HList, L2 <: HList, Out0 <: HList] = Merge[L1, L2] { type Out = Out0 }
@@ -236,8 +297,7 @@ package object intersection {
 
     // user defined rule: If an HasEval is in a list, then also an Int is in the list
     trait HasEval { def eval: Int }
-    implicit def hasEvalInL[L <: HList](implicit in: HasEval ∈ L): Int ∈ L
-    = new Selector[L, Int] {
+    implicit def hasEvalInL[L <: HList](implicit in: HasEval ∈ L): Int ∈ L = new Selector[L, Int] {
       def apply(l: L): Int = in(l).eval
     }
 
@@ -249,6 +309,41 @@ package object intersection {
     subtype[
       Boolean :: String :: HNil,
       String :: Int :: Boolean :: HNil]
+  }
+
+  private object joinTests {
+
+    implicitly[Join.Aux[
+      HNil,
+      String :: HNil,
+      String :: HNil]]
+
+    implicitly[Join.Aux[
+      Int :: HNil,
+      String :: HNil,
+      Int :: String :: HNil]]
+
+    implicitly[Join.Aux[
+      Int :: HNil,
+      Int :: String :: HNil,
+      Int :: String :: HNil]]
+
+    implicitly[Join.Aux[
+      Int :: String :: HNil,
+      Int :: String :: HNil,
+      Int :: String :: HNil]]
+
+    type T1 = Int :: Boolean :: HNil
+    type T2 = Int :: String :: HNil
+
+    type B = Int :: Boolean :: String :: HNil
+
+    implicitly[Join.Aux[T1, T2, B]]
+
+    // Int x Bool   => Bool
+    // Int x String => String
+
+    // Int x Bool x String => Bool x String
   }
 
   object mergeTests {

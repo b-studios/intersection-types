@@ -81,8 +81,14 @@ package object intersection {
 
   /**
    * Typeclass witnessing the fact that L is a wellformed intersection type.
+   *
+   * @group Wellformedness
    */
   sealed trait WF[L <: HList]
+
+  /**
+   * @group Wellformedness
+   */
   object WF {
 
     private def witness[L <: HList]: WF[L] = new WF[L] {}
@@ -112,15 +118,28 @@ package object intersection {
    * components of the intersection type from other existing components.
    *
    * Note: Right now, we don't require L1 or L2 to be WF.
+   *
+   * @group Subtyping
    */
   sealed trait Subtype[L1 <: HList, L2 <: HList] {
     def apply(l: L2): L1
   }
+
+  /**
+   * @group Subtyping
+   */
   type ≺[L1 <: HList, L2 <: HList] = Subtype[L1, L2]
 
+  /**
+   * @group Subtyping
+   */
   trait LowPrioSubtype {
     implicit def mergeLeft[L1 <: HList, L2 <: HList](implicit m: Merge[L1, L2]): L1 ≺ m.Out = m.left
   }
+
+  /**
+   * @group Subtyping
+   */
   object Subtype extends LowPrioSubtype {
 
     def witness[L1 <: HList, L2 <: HList](f: L2 => L1) = new Subtype[L1, L2] {
@@ -148,22 +167,32 @@ package object intersection {
     implicit def mergeRight[L1 <: HList, L2 <: HList](implicit m: Merge[L1, L2]): L2 ≺ m.Out = m.right
   }
 
-  // Right now, applying subsumption implicitly does not work. But making subsumption implicit
-  // also doesn't break anything right now, so let's keep it enabled.
-  implicit def subsume[L1 <: HList, L2 <: HList](l2: L2)(implicit s: L1 ≺ L2): L1 = s(l2)
+  /**
+   * @group Subtyping
+   */
   implicit class SubtypeOps[L1 <: HList](self: L1) {
     def coerce[L2 <: HList](implicit s: L2 ≺ L1): L2 = s(self)
   }
 
+  /**
+   * Note: Right now, applying subsumption implicitly does not work. But making
+   * subsumption implicit also doesn't break anything right now, so let's keep
+   * it enabled.
+   *
+   * @group Subtyping
+   */
+  implicit def subsume[L1 <: HList, L2 <: HList](l2: L2)(implicit s: L1 ≺ L2): L1 = s(l2)
+
+  /**
+   * @group Subtyping
+   */
   implicit def autoProject[T, L <: HList](l: L)(implicit s: T ∈ L): T = s(l)
 
+  /**
+   * @group Subtyping
+   */
   implicit def autoLift[T](t: T): T :: HNil = t :: HNil
 
-  // Contravariant merge: Intersection types in negative positions.
-  //
-  // Behaves similar to a "join" - it is not a problem
-  // if a member does occur in both of the components. CoMerge is just Setunion
-  // of L1 and L2.
 
   /**
    * Type-class witnessing a common super (intersection) type of `L1` and `L2`.
@@ -173,14 +202,23 @@ package object intersection {
    * The resulting type `Out` will be similar to the result of a merge. However,
    * with `Join` it is not a problem if a member does occur in both of the
    * components. In this case `Join` just behaves like set-union of `L1` and `L2`
+   *
+   * @group Joining
    */
   sealed trait Join[L1 <: HList, L2 <: HList] {
     type Out <: HList
     def left: L1 ≺ Out
     def right: L2 ≺ Out
   }
+
+  /**
+   * @group Joining
+   */
   type ^[L1 <: HList, L2 <: HList] = Join[L1, L2]
 
+  /**
+   * @group Joining
+   */
   object Join {
     type Aux[L1 <: HList, L2 <: HList, Out0 <: HList] = Join[L1, L2] { type Out = Out0 }
 
@@ -217,12 +255,22 @@ package object intersection {
       }
   }
 
+  /**
+   * @group Merging
+   */
   sealed trait Merge[L1 <: HList, L2 <: HList] extends Join[L1, L2] {
     type Out <: HList
     def apply(l1: L1, l2: L2): Out
   }
+
+  /**
+   * @group Merging
+   */
   type &[L1 <: HList, L2 <: HList] = Merge[L1, L2]
 
+  /**
+   * @group Merging
+   */
   object Merge {
     type Aux[L1 <: HList, L2 <: HList, Out0 <: HList] = Merge[L1, L2] { type Out = Out0 }
 
@@ -266,8 +314,11 @@ package object intersection {
       def left: (H :: L1) ≺ (H :: m.Out) = Subtype.witness(o => o.head :: m.left(o.tail))
       def right: L2       ≺ (H :: m.Out) = Subtype.witness(o => m.right(o.tail))
     }
-
   }
+
+  /**
+   * @group Merging
+   */
   implicit class MergeOps[L1 <: HList](self: L1) {
     def &[L2 <: HList](other: L2)(implicit m: Merge[L1, L2]): m.Out = m(self, other)
   }
@@ -346,7 +397,7 @@ package object intersection {
     // Int x Bool x String => Bool x String
   }
 
-  object mergeTests {
+  private object mergeTests {
 
     implicitly[Merge.Aux[
       Int :: HNil,

@@ -2,26 +2,82 @@ import shapeless._
 import ops.hlist._
 import shapeless.test.illTyped
 
-
 /**
- * Using HLists as flat representation of intersection types. Essentially, we treat
- * HLists as HSets by requiring that a type may only occur once in an intersection.
- * (Also see wellformedness, `WF[L]`).
+ * Using HLists as flat representation of intersection types.
  *
- * Design decision: Right now, only HLists that contain at least one element are
+ *
+ * ==Overview==
+ * A value of the intersection type `A & B` can be used both as
+ * a value of type `A` as well as a value of type `B`. Given the
+ * two functions
+ *
+ * {{{
+ *   def f(x: Int): String = x.toString
+ *   def g(x: Boolean): String = if (x) "hello" else "world"
+ * }}}
+ *
+ * a value `foo: Int & Boolean` can be passed to both functions
+ * `f` and `g`. Using Scala's intersection types, which are
+ * backed by Java interfaces / classes we cannot obtain a
+ * value of type `Int with Boolean`. In addition, given an
+ * integer and a boolean, we cannot create such a value at runtime.
+ *
+ * This library allows to do both by representing a value which
+ * is of type `Int` and of type `Boolean` as the type-level list
+ * `Int :: Boolean :: HNil`. Merging an integer with a boolean
+ * value simply amounts to storing them in a (h)list.
+ *
+ * ==Usage==
+ * Since we use the hlist implementation of shapeless as backing data structure
+ * you need to also include shapeless as dependency and import the hlist
+ * operations:
+ *
+ * {{{
+ *   import shapeless._
+ *   import ops.hlist._
+ * }}}
+ *
+ * Now, given two values of intersection types we can apply merge them
+ * to obtain the intersection:
+ *
+ * {{{
+ *   val x: Int :: HNil = 42 :: HNil
+ *   val y: Boolean :: HNil = false :: HNil
+ *
+ *   val both: Int :: Boolean :: HNil = x & y
+ *
+ *   println(f(both.select[Int]) + " " + g(both.select[Boolean]))
+ * }}}
+ *
+ * As you notice, the projection into the intersection type has to be
+ * explicitly selected at the moment. The same is true for subtyping
+ * relationships between intersection types:
+ *
+ * {{{
+ *   val y2: Boolean :: HNil = subsume[Boolean :: HNil, Int :: Boolean :: HNil](both)
+ * }}}
+ *
+ * We hope to work around this issue in future releases.
+ *
+ * ==Implementation==
+ * The implementation keeps the invariant, that a type may only occur once
+ * in an intersection (also see wellformedness, [[WF]]). Also the order
+ * of elements in the HLists can be arbitrary, effectively
+ * implementing type level sets.
+ *
+ * ''Design decision'': Right now, only HLists that contain at least one element are
  * considered a wellformed intersection type. The alternative would be to also
  * allow for empty intersections (see code which is commented out).
  *
- * We also don't account for subtypes, yet. So if B <: A and we have a list
- * of type L = B :: HNil, we cannot select an A from it.
- *
+ * We also don't account for subtypes, yet. So if `B <: A` and we have a list
+ * of type `L = B :: HNil`, we cannot select an `A` from it.
  * This is a consequence of Selector being defined invariant in shapeless.
  */
 package object intersection {
 
   // Some aliases for more inference-rule looking implicits
-  type ∉[T, L <: HList] = FilterNot.Aux[L, T, L]
-  type ∈[T, L <: HList] = Selector[L, T]
+  private type ∉[T, L <: HList] = FilterNot.Aux[L, T, L]
+  private type ∈[T, L <: HList] = Selector[L, T]
 
   /**
    * Typeclass witnessing the fact that L is a wellformed intersection type.
@@ -125,37 +181,38 @@ package object intersection {
 
     implicit def singletonMerge[H, L <: HList](implicit
 
-                   notIn: H ∉ L
+      notIn: H ∉ L
       //  -------------------------------
     ):    Merge.Aux[H :: HNil, L, H :: L]
 
-      = new Merge[H :: HNil, L] {
-        type Out = H :: L
-        def apply(l1: H :: HNil, l2: L): Out = l1.head :: l2
-        def left: (H :: HNil) ≺ Out = Subtype.witness(o => o.head :: HNil)
-        def right: L ≺ Out          = Subtype.witness(o => o.tail)
-      }
+    = new Merge[H :: HNil, L] {
+      type Out = H :: L
+      def apply(l1: H :: HNil, l2: L): Out = l1.head :: l2
+      def left: (H :: HNil) ≺ Out = Subtype.witness(o => o.head :: HNil)
+      def right: L ≺ Out          = Subtype.witness(o => o.tail)
+    }
 
     // The simplest merge, forbid double occurrences
     implicit def consMergeProhibitive[H, L1 <: HList, L2 <: HList](implicit
 
-          wf1: WF[H :: L1], wf2: WF[L2], notIn: H ∉ L2, m: Merge[L1, L2]
+      wf1: WF[H :: L1], wf2: WF[L2], notIn: H ∉ L2, m: Merge[L1, L2]
       //  --------------------------------------------------------------
     ):                 Merge.Aux[H :: L1, L2, H :: m.Out]
 
-      = new Merge[H :: L1, L2] {
-        type Out = H :: m.Out
-        def apply(l1: H :: L1, l2: L2): Out = l1.head :: m(l1.tail, l2)
-        def left: (H :: L1) ≺ (H :: m.Out) = Subtype.witness(o => o.head :: m.left(o.tail))
-        def right: L2       ≺ (H :: m.Out) = Subtype.witness(o => m.right(o.tail))
-      }
+    = new Merge[H :: L1, L2] {
+      type Out = H :: m.Out
+      def apply(l1: H :: L1, l2: L2): Out = l1.head :: m(l1.tail, l2)
+      def left: (H :: L1) ≺ (H :: m.Out) = Subtype.witness(o => o.head :: m.left(o.tail))
+      def right: L2       ≺ (H :: m.Out) = Subtype.witness(o => m.right(o.tail))
+    }
 
   }
   implicit class MergeOps[L1 <: HList](self: L1) {
     def &[L2 <: HList](other: L2)(implicit m: Merge[L1, L2]): m.Out = m(self, other)
   }
 
-  object wellformedTests {
+
+  private object wellformedTests {
 
     def wellformed[T <: HList](implicit w: WF[T]): Unit = ()
 
@@ -169,7 +226,7 @@ package object intersection {
     illTyped("wellformed[Int :: Unit :: Int :: Unit :: HNil]")
   }
 
-  object subtypeTests {
+  private object subtypeTests {
 
     def subtype[L1 <: HList, L2 <: HList](implicit w: Subtype[L1, L2]): Unit = ()
 
@@ -234,5 +291,19 @@ package object intersection {
 
     // autocoercion does not work, right now.
     val l = merged.coerce[Int :: Boolean :: HNil]
+
+    def f(x: Int): String = x.toString
+    def g(x: Boolean): String = if (x) "hello" else "world"
+
+    val x: Int :: HNil    = 42
+    val y: Boolean :: HNil = false
+
+    val both: Int :: Boolean :: HNil = x & y
+    val y2: Boolean :: HNil = subsume[Boolean :: HNil, Int :: Boolean :: HNil](both)
+
+    println(f(both.select[Int]) + " " + g(both.select[Boolean]))
+
+
   }
+
 }

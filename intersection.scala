@@ -336,6 +336,101 @@ package object intersection extends DocTrait {
   }
 
 
+  /**
+   * Type class witnessing that the requirements `R2` in part can be fulfilled
+   * by the services `P1` provided by `m1`.
+   *
+   * The resulting module computes the same results as `m2`, but potentially
+   * has different requirements.
+   *
+   * ===Example===
+   * Given two modules
+   *
+   * {{{
+   *   m1: A & B => C
+   *   m2: C & D => E
+   * }}}
+   *
+   * Compose should yield an updated module `m2` with some of the requirements
+   * met by m1. That is,
+   *
+   * {{{
+   *   m2': A & B & D => E
+   * }}}
+   *
+   * @tparam Matched The set of requirements which can be fulfilled by `m1`.
+   * @tparam Remaining The remaining set of requirements of `m2` that cannot be fulfilled by `m1`.
+   * @tparam Req Remaning requirements of `m2` and the requirements `R1`
+   *
+   * @group Module Composition
+   */
+  trait Compose[R1 <: HList, P1 <: HList, R2 <: HList, P2 <: HList] {
+    type Matched <: HList
+    type Remaining <: HList
+    type Req <: HList
+    type Out = Req => P2
+
+    /**
+     * Proof term, merging two modules `m1` and `m2`.
+     */
+    def apply(m1: R1 => P1, m2: R2 => P2): Req => P2
+
+    /**
+     * Proof that the requirements `R1` of `m1` are still part of the
+     * requirments of the resulting module.
+     */
+    def req: R1 ≺ Req
+  }
+
+  /**
+   * @group Module Composition
+   */
+  object Compose {
+
+    /**
+     * Function to compose two modules, using an instance of [[Compose]].
+     */
+    def apply[R1 <: HList, P1 <: HList, R2 <: HList, P2 <: HList](
+      m1: R1 => P1, m2: R2 => P2
+    )(implicit comp: Compose[R1, P1, R2, P2]): comp.Out = comp(m1, m2)
+
+    /**
+     * There is exactly one way to construct an instance of [[Compose]]
+     */
+    implicit def autoMatch[
+      R1 <: HList, P1 <: HList,
+      R2 <: HList, P2 <: HList,
+      M0 <: HList, Rem0 <: HList
+    ](implicit
+      mm: M0 ≺ P1,
+      merge: Merge.Aux[M0, Rem0, R2],
+      cm: R1 ^ Rem0
+    ) = new Compose[R1, P1, R2, P2] {
+      type Remaining = Rem0
+      type Matched = M0
+      type Req = cm.Out
+
+      def apply(m1: R1 => P1, m2: R2 => P2): Req => P2 = req => {
+        val resL: P1 = m1(cm left req)
+        val resM: M0 = mm(resL)
+        val reqR: R2 = merge(resM, cm right req)
+        m2(reqR)
+      }
+
+      def req: R1 ≺ Req = Subtype.witness(req => cm left req)
+    }
+  }
+
+  /**
+   * @group Module Composition
+   */
+  implicit class ComposeOps[R1 <: HList, P1 <: HList](self: R1 => P1) {
+    def &>[R2 <: HList, P2 <: HList](other: R2 => P2)(implicit comp: Compose[R1, P1, R2, P2]): comp.Out =
+      comp(self, other)
+    def <&[R2 <: HList, P2 <: HList](other: R2 => P2)(implicit comp: Compose[R2, P2, R1, P1]): comp.Out =
+      comp(other, self)
+  }
+
   private object wellformedTests {
 
     def wellformed[T <: HList](implicit w: WF[T]): Unit = ()
@@ -463,4 +558,13 @@ package object intersection extends DocTrait {
 
   }
 
+  private object composeTests {
+    val m1: (String :: HNil) => (String :: HNil) = n => n.at(0) + "!"
+    val m2: (String :: HNil) => (Int :: HNil)    = n => n.at(0).size
+
+    val res: (String :: HNil) => (Int :: HNil) = m1 &> m2
+    val y: Int = res("hello world" :: HNil).at(0)
+
+    assert(y == 12)
+  }
 }

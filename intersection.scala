@@ -2,6 +2,17 @@ import shapeless._
 import ops.hlist._
 import shapeless.test.illTyped
 
+package intersection {
+
+  /**
+   * Markertrait containing ''ScalaDoc'' definitions for [[intersection]].
+   *
+   * @define TYPE intersection type
+   */
+  private[intersection] sealed trait DocTrait
+
+}
+
 /**
  * Using HLists as flat representation of intersection types.
  *
@@ -73,14 +84,14 @@ import shapeless.test.illTyped
  * of type `L = B :: HNil`, we cannot select an `A` from it.
  * This is a consequence of Selector being defined invariant in shapeless.
  */
-package object intersection {
+package object intersection extends DocTrait {
 
   // Some aliases for more inference-rule looking implicits
   private type ∉[T, L <: HList] = FilterNot.Aux[L, T, L]
   private type ∈[T, L <: HList] = Selector[L, T]
 
   /**
-   * Typeclass witnessing the fact that L is a wellformed intersection type.
+   * Type class witnessing the fact that L is a wellformed $TYPE.
    *
    * @group Wellformedness
    */
@@ -111,13 +122,14 @@ package object intersection {
   }
 
   /**
-   * Typeclass witnessing the fact that the intersection type L1 is a subtype of L2.
-   * We also write: L1 ≺ L2
+   * Type class witnessing the fact that the $TYPE `L1` is a subtype of `L2`.
    *
-   * Note that also users can define instances of Selector and Subtype to synthesize
-   * components of the intersection type from other existing components.
+   * We also write: `L1 ≺ L2`
    *
-   * Note: Right now, we don't require L1 or L2 to be WF.
+   * Note that also users can define instances of `Selector` and `Subtype` to synthesize
+   * components of the $TYPE from other existing components.
+   *
+   * Note: Right now, we don't require `L1` or `L2` to be [[WF]].
    *
    * @group Subtyping
    */
@@ -195,13 +207,13 @@ package object intersection {
 
 
   /**
-   * Type-class witnessing a common super (intersection) type of `L1` and `L2`.
+   * Type class witnessing a common super (intersection) type of `L1` and `L2`.
    *
-   * An instance of this type-class allows projection of `Out` to both `L1` and `L2`.
+   * An instance of this type class allows projection of `Out` to both `L1` and `L2`.
    *
-   * The resulting type `Out` will be similar to the result of a merge. However,
+   * The resulting $TYPE `Out` will be similar to the result of a merge. However,
    * with `Join` it is not a problem if a member does occur in both of the
-   * components. In this case `Join` just behaves like set-union of `L1` and `L2`
+   * components. In this case `Join` just behaves like set-union of `L1` and `L2`.
    *
    * @group Joining
    */
@@ -448,7 +460,6 @@ package object intersection {
     val y2: Boolean :: HNil = subsume[Boolean :: HNil, Int :: Boolean :: HNil](both)
 
     println(f(both.select[Int]) + " " + g(both.select[Boolean]))
-
 
   }
 

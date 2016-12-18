@@ -17,6 +17,7 @@ doc in Compile := {
 
   val cssPatch =
     """|.cmt h4 { font-size: 1.5em }
+       |.cmt h5 { font-size: 1.25em }
        |.cmt code {
        |    font-weight: normal !important;
        |    padding: 0 0.5em;

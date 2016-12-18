@@ -117,9 +117,23 @@ of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li class="current-entities indented1">
+                        <a class="object" href="package$$Compose$.html" title=""></a>
+                        <a class="trait" href="package$$Compose.html" title="Type class witnessing that the requirements R2 in part can be fulfilled
+by the services P1 provided by m1."></a>
+                        <a href="package$$Compose.html" title="Type class witnessing that the requirements R2 in part can be fulfilled
+by the services P1 provided by m1.">
+                          Compose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="class" href="package$$ComposeOps.html" title=""></a>
+                        <a href="package$$ComposeOps.html" title="">
+                          ComposeOps
+                        </a>
+                      </li><li class="current-entities indented1">
                         <a class="object" href="package$$Join$.html" title=""></a>
-                        <a class="trait" href="package$$Join.html" title="Type-class witnessing a common super (intersection) type of L1 and L2."></a>
-                        <a href="package$$Join.html" title="Type-class witnessing a common super (intersection) type of L1 and L2.">
+                        <a class="trait" href="package$$Join.html" title="Type class witnessing a common super (intersection) type of L1 and L2."></a>
+                        <a href="package$$Join.html" title="Type class witnessing a common super (intersection) type of L1 and L2.">
                           Join
                         </a>
                       </li><li class="current-entities indented1">
@@ -142,8 +156,8 @@ This is a consequence of Selector being defined invariant in shapeless.
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Subtype$.html" title=""></a>
-                        <a class="trait" href="package$$Subtype.html" title="Typeclass witnessing the fact that the intersection type L1 is a subtype of L2."></a>
-                        <a href="package$$Subtype.html" title="Typeclass witnessing the fact that the intersection type L1 is a subtype of L2.">
+                        <a class="trait" href="package$$Subtype.html" title="Type class witnessing the fact that the intersection type L1 is a subtype of L2."></a>
+                        <a href="package$$Subtype.html" title="Type class witnessing the fact that the intersection type L1 is a subtype of L2.">
                           Subtype
                         </a>
                       </li><li class="current-entities indented1">
@@ -154,8 +168,8 @@ This is a consequence of Selector being defined invariant in shapeless.
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$WF$.html" title=""></a>
-                        <a class="trait" href="package$$WF.html" title="Typeclass witnessing the fact that L is a wellformed intersection type."></a>
-                        <a href="package$$WF.html" title="Typeclass witnessing the fact that L is a wellformed intersection type.">
+                        <a class="trait" href="package$$WF.html" title="Type class witnessing the fact that L is a wellformed intersection type."></a>
+                        <a href="package$$WF.html" title="Type class witnessing the fact that L is a wellformed intersection type.">
                           WF
                         </a>
                       </li>
@@ -219,7 +233,7 @@ This is a consequence of Selector being defined invariant in shapeless.
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="intersection.DocTrait">DocTrait</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -245,7 +259,7 @@ This is a consequence of Selector being defined invariant in shapeless.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="intersection"><span>intersection</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="intersection"><span>intersection</span></li><li class="in" name="intersection.DocTrait"><span>DocTrait</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -283,6 +297,48 @@ This is a consequence of Selector being defined invariant in shapeless.
       </span>
       
       <p class="shortcomment cmt"></p>
+    </li><li name="intersection.Compose" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Module Composition">
+      <a id="Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsAnyRef"></a><a id="Compose[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList]:Compose[R1,P1,R2,P2]"></a>
+      <span class="permalink">
+      <a href="../intersection/index.html#Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Type class witnessing that the requirements R2 in part can be fulfilled
+by the services P1 provided by m1." href="package$$Compose.html">
+              <span class="name">Compose</span>
+            </a><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Type class witnessing that the requirements <code>R2</code> in part can be fulfilled
+by the services <code>P1</code> provided by <code>m1</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type class witnessing that the requirements <code>R2</code> in part can be fulfilled
+by the services <code>P1</code> provided by <code>m1</code>.</p><p>The resulting module computes the same results as <code>m2</code>, but potentially
+has different requirements.</p><h5>Example</h5><p>Given two modules</p><pre>m1: A &amp; B <span class="kw">=&gt;</span> C
+m2: C &amp; D <span class="kw">=&gt;</span> E</pre><p>Compose should yield an updated module <code>m2</code> with some of the requirements
+met by m1. That is,</p><pre>m2': A &amp; B &amp; D <span class="kw">=&gt;</span> E</pre></div></div>
+    </li><li name="intersection.ComposeOps" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Module Composition">
+      <a id="ComposeOps[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList]extendsAnyRef"></a><a id="ComposeOps[R1&lt;:HList,P1&lt;:HList]:ComposeOps[R1,P1]"></a>
+      <span class="permalink">
+      <a href="../intersection/index.html#ComposeOps[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$ComposeOps.html">
+              <span class="name">ComposeOps</span>
+            </a><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      <p class="shortcomment cmt"></p>
     </li><li name="intersection.Join" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Joining">
       <a id="Join[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsAnyRef"></a><a id="Join[L1&lt;:HList,L2&lt;:HList]:Join[L1,L2]"></a>
       <span class="permalink">
@@ -295,14 +351,14 @@ This is a consequence of Selector being defined invariant in shapeless.
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Type-class witnessing a common super (intersection) type of L1 and L2." href="package$$Join.html">
+        <a title="Type class witnessing a common super (intersection) type of L1 and L2." href="package$$Join.html">
               <span class="name">Join</span>
             </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Type-class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type-class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><p>An instance of this type-class allows projection of <code>Out</code> to both <code>L1</code> and <code>L2</code>.</p><p>The resulting type <code>Out</code> will be similar to the result of a merge. However,
+      <p class="shortcomment cmt">Type class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><p>An instance of this type class allows projection of <code>Out</code> to both <code>L1</code> and <code>L2</code>.</p><p>The resulting intersection type <code>Out</code> will be similar to the result of a merge. However,
 with <code>Join</code> it is not a problem if a member does occur in both of the
-components. In this case <code>Join</code> just behaves like set-union of <code>L1</code> and <code>L2</code>
+components. In this case <code>Join</code> just behaves like set-union of <code>L1</code> and <code>L2</code>.
 </p></div></div>
     </li><li name="intersection.LowPrioSubtype" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Subtyping">
       <a id="LowPrioSubtypeextendsAnyRef"></a><a id="LowPrioSubtype:LowPrioSubtype"></a>
@@ -370,14 +426,13 @@ components. In this case <code>Join</code> just behaves like set-union of <code>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Typeclass witnessing the fact that the intersection type L1 is a subtype of L2." href="package$$Subtype.html">
+        <a title="Type class witnessing the fact that the intersection type L1 is a subtype of L2." href="package$$Subtype.html">
               <span class="name">Subtype</span>
             </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass witnessing the fact that the intersection type L1 is a subtype of L2.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass witnessing the fact that the intersection type L1 is a subtype of L2.
-We also write: L1 ≺ L2</p><p>Note that also users can define instances of Selector and Subtype to synthesize
-components of the intersection type from other existing components.</p><p>Note: Right now, we don't require L1 or L2 to be WF.
+      <p class="shortcomment cmt">Type class witnessing the fact that the intersection type <code>L1</code> is a subtype of <code>L2</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type class witnessing the fact that the intersection type <code>L1</code> is a subtype of <code>L2</code>.</p><p>We also write: <code>L1 ≺ L2</code></p><p>Note that also users can define instances of <code>Selector</code> and <code>Subtype</code> to synthesize
+components of the intersection type from other existing components.</p><p>Note: Right now, we don't require <code>L1</code> or <code>L2</code> to be <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>.
 </p></div></div>
     </li><li name="intersection.SubtypeOps" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Subtyping">
       <a id="SubtypeOps[L1&lt;:shapeless.HList]extendsAnyRef"></a><a id="SubtypeOps[L1&lt;:HList]:SubtypeOps[L1]"></a>
@@ -409,12 +464,12 @@ components of the intersection type from other existing components.</p><p>Note: 
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Typeclass witnessing the fact that L is a wellformed intersection type." href="package$$WF.html">
+        <a title="Type class witnessing the fact that L is a wellformed intersection type." href="package$$WF.html">
               <span class="name">WF</span>
             </a><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass witnessing the fact that L is a wellformed intersection type.</p>
+      <p class="shortcomment cmt">Type class witnessing the fact that L is a wellformed intersection type.</p>
     </li><li name="intersection.^" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Joining">
       <a id="^[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Join[L1,L2]"></a><a id="^[L1&lt;:HList,L2&lt;:HList]:^[L1,L2]"></a>
       <span class="permalink">
@@ -506,6 +561,24 @@ components of the intersection type from other existing components.</p><p>Note: 
 subsumption implicit also doesn't break anything right now, so let's keep
 it enabled.
 </p></div></div>
+    </li><li name="intersection.Compose" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Module Composition">
+      <a id="Compose"></a><a id="Compose:Compose"></a>
+      <span class="permalink">
+      <a href="../intersection/index.html#Compose" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$Compose$.html">
+              <span class="name">Compose</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt"></p>
     </li><li name="intersection.Join" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Joining">
       <a id="Join"></a><a id="Join:Join"></a>
       <span class="permalink">
@@ -588,7 +661,9 @@ it enabled.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="intersection.DocTrait">
+              <h3>Inherited from <span class="extype" name="intersection.DocTrait">DocTrait</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
@@ -602,6 +677,9 @@ it enabled.
               
             </div><div class="group" name="Merging">
               <h3>Merging</h3>
+              
+            </div><div class="group" name="Module Composition">
+              <h3>Module Composition</h3>
               
             </div><div class="group" name="Subtyping">
               <h3>Subtyping</h3>

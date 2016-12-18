@@ -872,14 +872,7 @@ and (-webkit-device-pixel-ratio: 2)
   }
 }
 .cmt h4 { font-size: 1.5em }
-.cmt code {
-    font-weight: normal !important;
-    padding: 0 0.5em;
-    border: 0px solid #ddd;
-    background-color: #fff;
-    font-family: "Source Code Pro", "Monaco", "Ubuntu Mono Regular", "Lucida Console", monospace;
-}
-    .cmt h4 { font-size: 1.5em }
+.cmt h5 { font-size: 1.25em }
 .cmt code {
     font-weight: normal !important;
     padding: 0 0.5em;

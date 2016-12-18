@@ -110,7 +110,7 @@ to obtain the intersection:</p><pre><span class="kw">val</span> x: <span class="
 println(f(both.select[<span class="std">Int</span>]) + <span class="lit">" "</span> + g(both.select[<span class="std">Boolean</span>]))</pre><p>As you notice, the projection into the intersection type has to be
 explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
-in an intersection (also see wellformedness, <a href="" class="extype" name="intersection.WF">WF</a>). Also the order
+in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
 implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
 considered a wellformed intersection type. The alternative would be to also
@@ -119,7 +119,7 @@ of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li class="current-entities indented1">
-                        <a class="object" href="package$$Compose$.html" title=""></a>
+                        <a class="object" href="" title=""></a>
                         <a class="trait" href="package$$Compose.html" title="Type class witnessing that the requirements R2 in part can be fulfilled
 by the services P1 provided by m1."></a>
                         <a href="package$$Compose.html" title="Type class witnessing that the requirements R2 in part can be fulfilled
@@ -170,8 +170,8 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$WF$.html" title=""></a>
-                        <a class="trait" href="" title="Type class witnessing the fact that L is a wellformed intersection type."></a>
-                        <a href="" title="Type class witnessing the fact that L is a wellformed intersection type.">
+                        <a class="trait" href="package$$WF.html" title="Type class witnessing the fact that L is a wellformed intersection type."></a>
+                        <a href="package$$WF.html" title="Type class witnessing the fact that L is a wellformed intersection type.">
                           WF
                         </a>
                       </li>
@@ -179,33 +179,32 @@ by the services P1 provided by m1.">
             </div>
           </div>
           <div id="content">
-            <body class="trait type">
+            <body class="object value">
       <div id="definition">
-        <a href="package$$WF$.html" title="See companion object"><div class="big-circle trait-companion-object">t</div></a>
+        <a href="package$$Compose.html" title="See companion trait"><div class="big-circle object-companion-trait">o</div></a>
         <p id="owner"><a href="index.html" class="extype" name="intersection">intersection</a></p>
-        <h1><a href="package$$WF$.html" title="See companion object">WF</a><span class="permalink">
-      <a href="../intersection/package$$WF.html" title="Permalink">
+        <h1><a href="package$$Compose.html" title="See companion trait">Compose</a><span class="permalink">
+      <a href="../intersection/package$$Compose$.html" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span></h1>
         <h3><span class="morelinks"><div>
-            Companion <a href="package$$WF$.html" title="See companion object">object WF</a>
+            Companion <a href="package$$Compose.html" title="See companion trait">trait Compose</a>
           </div></span></h3>
       </div>
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier">sealed </span>
-        <span class="kind">trait</span>
+        <span class="modifier"></span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">WF</span><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">Compose</span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type class witnessing the fact that L is a wellformed intersection type.
-</p></div><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"></div><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -235,7 +234,7 @@ by the services P1 provided by m1.">
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="intersection.WF"><span>WF</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="intersection.Compose"><span>Compose</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -265,7 +264,7 @@ by the services P1 provided by m1.">
                 <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#!=(x$1:Any):Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#!=(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -281,7 +280,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="##():Int"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html###():Int" title="Permalink">
+      <a href="../intersection/package$$Compose$.html###():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -297,7 +296,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#==(x$1:Any):Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#==(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -310,10 +309,26 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="intersection.Compose#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="apply[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](m1:R1=&gt;P1,m2:R2=&gt;P2)(implicitcomp:intersection.package.Compose[R1,P1,R2,P2]):comp.Out"></a><a id="apply[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList]((R1)⇒P1,(R2)⇒P2)(Compose[R1,P1,R2,P2]):Out"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Compose$.html#apply[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](m1:R1=&gt;P1,m2:R2=&gt;P2)(implicitcomp:intersection.package.Compose[R1,P1,R2,P2]):comp.Out" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span name="m1">m1: (<span class="extype" name="intersection.Compose.apply.R1">R1</span>) ⇒ <span class="extype" name="intersection.Compose.apply.P1">P1</span></span>, <span name="m2">m2: (<span class="extype" name="intersection.Compose.apply.R2">R2</span>) ⇒ <span class="extype" name="intersection.Compose.apply.P2">P2</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="comp">comp: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.Compose.apply.R1">R1</span>, <span class="extype" name="intersection.Compose.apply.P1">P1</span>, <span class="extype" name="intersection.Compose.apply.R2">R2</span>, <span class="extype" name="intersection.Compose.apply.P2">P2</span>]</span>)</span><span class="result">: <a href="package$$Compose.html#Out=Compose.this.Req=&gt;P2" class="extmbr" name="intersection.Compose.Out">Out</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Function to compose two modules, using an instance of <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>.</p>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#asInstanceOf[T0]:T0" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#asInstanceOf[T0]:T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -326,10 +341,27 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="intersection.Compose#autoMatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="autoMatch[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}"></a><a id="autoMatch[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList,M0&lt;:HList,Rem0&lt;:HList](≺[M0,P1],Aux[M0,Rem0,R2],^[R1,Rem0]):Compose[R1,P1,R2,P2]{.../*3definitionsintyperefinement*/}"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Compose$.html#autoMatch[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">autoMatch</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="M0">M0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="Rem0">Rem0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="intersection.Compose.autoMatch.M0">M0</span>, <span class="extype" name="intersection.Compose.autoMatch.P1">P1</span>]</span>, <span name="merge">merge: <a href="package$$Merge$.html#Aux[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList,Out0&lt;:shapeless.HList]=intersection.package.Merge[L1,L2]{typeOut=Out0}" class="extmbr" name="intersection.Merge.Aux">Aux</a>[<span class="extype" name="intersection.Compose.autoMatch.M0">M0</span>, <span class="extype" name="intersection.Compose.autoMatch.Rem0">Rem0</span>, <span class="extype" name="intersection.Compose.autoMatch.R2">R2</span>]</span>, <span name="cm">cm: <a href="index.html#^[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Join[L1,L2]" class="extmbr" name="intersection.^">^</a>[<span class="extype" name="intersection.Compose.autoMatch.R1">R1</span>, <span class="extype" name="intersection.Compose.autoMatch.Rem0">Rem0</span>]</span>)</span><span class="result">: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.Compose.autoMatch.R1">R1</span>, <span class="extype" name="intersection.Compose.autoMatch.P1">P1</span>, <span class="extype" name="intersection.Compose.autoMatch.R2">R2</span>, <span class="extype" name="intersection.Compose.autoMatch.P2">P2</span>] { ... /* 3 definitions in type refinement */ }</span>
+      </span>
+      
+      <p class="shortcomment cmt">There is exactly one way to construct an instance of <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>
+</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#clone():Object" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#clone():Object" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -351,7 +383,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -367,7 +399,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#equals(x$1:Any):Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#equals(x$1:Any):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -383,7 +415,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#finalize():Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#finalize():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -405,7 +437,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#getClass():Class[_]" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#getClass():Class[_]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -421,7 +453,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="hashCode():Int"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#hashCode():Int" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#hashCode():Int" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -437,7 +469,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#isInstanceOf[T0]:Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#isInstanceOf[T0]:Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -453,7 +485,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -469,7 +501,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#notify():Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#notify():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -485,7 +517,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notifyAll():Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#notifyAll():Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#notifyAll():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -501,7 +533,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -517,7 +549,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#toString():String" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#toString():String" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -533,7 +565,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#wait():Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#wait():Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -555,7 +587,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -577,7 +609,7 @@ by the services P1 provided by m1.">
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
       <span class="permalink">
-      <a href="../intersection/package$$WF.html#wait(x$1:Long):Unit" title="Permalink">
+      <a href="../intersection/package$$Compose$.html#wait(x$1:Long):Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>

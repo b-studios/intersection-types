@@ -110,8 +110,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -138,9 +138,21 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
+                        <a class="trait" href="package$$LowPrioCompose.html" title=""></a>
+                        <a href="package$$LowPrioCompose.html" title="">
+                          LowPrioCompose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
                         <a class="trait" href="package$$LowPrioSubtype.html" title=""></a>
                         <a href="package$$LowPrioSubtype.html" title="">
                           LowPrioSubtype
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$LowestPrioCompose.html" title=""></a>
+                        <a href="package$$LowestPrioCompose.html" title="">
+                          LowestPrioCompose
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Merge$.html" title=""></a>
@@ -224,8 +236,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -298,9 +310,9 @@ This is a consequence of Selector being defined invariant in shapeless.
       
       <p class="shortcomment cmt"></p>
     </li><li name="intersection.Compose" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Module Composition">
-      <a id="Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsAnyRef"></a><a id="Compose[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList]:Compose[R1,P1,R2,P2]"></a>
+      <a id="Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsSerializable"></a><a id="Compose[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList]:Compose[R1,P1,R2,P2]"></a>
       <span class="permalink">
-      <a href="../intersection/index.html#Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+      <a href="../intersection/index.html#Compose[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -312,7 +324,7 @@ This is a consequence of Selector being defined invariant in shapeless.
         <a title="Type class witnessing that the requirements R2 in part can be fulfilled
 by the services P1 provided by m1." href="package$$Compose.html">
               <span class="name">Compose</span>
-            </a><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Type class witnessing that the requirements <code>R2</code> in part can be fulfilled
@@ -340,9 +352,9 @@ met by m1. That is,</p><pre>m2': A &amp; B &amp; D <span class="kw">=&gt;</span>
       
       <p class="shortcomment cmt"></p>
     </li><li name="intersection.Join" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Joining">
-      <a id="Join[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsAnyRef"></a><a id="Join[L1&lt;:HList,L2&lt;:HList]:Join[L1,L2]"></a>
+      <a id="Join[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsSerializable"></a><a id="Join[L1&lt;:HList,L2&lt;:HList]:Join[L1,L2]"></a>
       <span class="permalink">
-      <a href="../intersection/index.html#Join[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+      <a href="../intersection/index.html#Join[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -353,13 +365,31 @@ met by m1. That is,</p><pre>m2': A &amp; B &amp; D <span class="kw">=&gt;</span>
       <span class="symbol">
         <a title="Type class witnessing a common super (intersection) type of L1 and L2." href="package$$Join.html">
               <span class="name">Join</span>
-            </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Type class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type class witnessing a common super (intersection) type of <code>L1</code> and <code>L2</code>.</p><p>An instance of this type class allows projection of <code>Out</code> to both <code>L1</code> and <code>L2</code>.</p><p>The resulting intersection type <code>Out</code> will be similar to the result of a merge. However,
 with <code>Join</code> it is not a problem if a member does occur in both of the
 components. In this case <code>Join</code> just behaves like set-union of <code>L1</code> and <code>L2</code>.
 </p></div></div>
+    </li><li name="intersection.LowPrioCompose" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowPrioComposeextendspackage.LowestPrioCompose"></a><a id="LowPrioCompose:LowPrioCompose"></a>
+      <span class="permalink">
+      <a href="../intersection/index.html#LowPrioComposeextendspackage.LowestPrioCompose" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$LowPrioCompose.html">
+              <span class="name">LowPrioCompose</span>
+            </a><span class="result"> extends <a href="package$$LowestPrioCompose.html" class="extype" name="intersection.LowestPrioCompose">LowestPrioCompose</a></span>
+      </span>
+      
+      
     </li><li name="intersection.LowPrioSubtype" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Subtyping">
       <a id="LowPrioSubtypeextendsAnyRef"></a><a id="LowPrioSubtype:LowPrioSubtype"></a>
       <span class="permalink">
@@ -378,6 +408,24 @@ components. In this case <code>Join</code> just behaves like set-union of <code>
       </span>
       
       <p class="shortcomment cmt"></p>
+    </li><li name="intersection.LowestPrioCompose" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LowestPrioComposeextendsAnyRef"></a><a id="LowestPrioCompose:LowestPrioCompose"></a>
+      <span class="permalink">
+      <a href="../intersection/index.html#LowestPrioComposeextendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="package$$LowestPrioCompose.html">
+              <span class="name">LowestPrioCompose</span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      
+      
     </li><li name="intersection.Merge" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Merging">
       <a id="Merge[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendspackage.Join[L1,L2]"></a><a id="Merge[L1&lt;:HList,L2&lt;:HList]:Merge[L1,L2]"></a>
       <span class="permalink">
@@ -386,7 +434,7 @@ components. In this case <code>Join</code> just behaves like set-union of <code>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">sealed </span>
+        <span class="modifier"></span>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
@@ -415,9 +463,9 @@ components. In this case <code>Join</code> just behaves like set-union of <code>
       
       <p class="shortcomment cmt"></p>
     </li><li name="intersection.Subtype" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Subtyping">
-      <a id="Subtype[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsAnyRef"></a><a id="Subtype[L1&lt;:HList,L2&lt;:HList]:Subtype[L1,L2]"></a>
+      <a id="Subtype[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsSerializable"></a><a id="Subtype[L1&lt;:HList,L2&lt;:HList]:Subtype[L1,L2]"></a>
       <span class="permalink">
-      <a href="../intersection/index.html#Subtype[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+      <a href="../intersection/index.html#Subtype[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -428,7 +476,7 @@ components. In this case <code>Join</code> just behaves like set-union of <code>
       <span class="symbol">
         <a title="Type class witnessing the fact that the intersection type L1 is a subtype of L2." href="package$$Subtype.html">
               <span class="name">Subtype</span>
-            </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="L1">L1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Type class witnessing the fact that the intersection type <code>L1</code> is a subtype of <code>L2</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Type class witnessing the fact that the intersection type <code>L1</code> is a subtype of <code>L2</code>.</p><p>We also write: <code>L1 ≺ L2</code></p><p>Note that also users can define instances of <code>Selector</code> and <code>Subtype</code> to synthesize
@@ -453,9 +501,9 @@ components of the intersection type from other existing components.</p><p>Note: 
       
       <p class="shortcomment cmt"></p>
     </li><li name="intersection.WF" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Wellformedness">
-      <a id="WF[L&lt;:shapeless.HList]extendsAnyRef"></a><a id="WF[L&lt;:HList]:WF[L]"></a>
+      <a id="WF[L&lt;:shapeless.HList]extendsSerializable"></a><a id="WF[L&lt;:HList]:WF[L]"></a>
       <span class="permalink">
-      <a href="../intersection/index.html#WF[L&lt;:shapeless.HList]extendsAnyRef" title="Permalink">
+      <a href="../intersection/index.html#WF[L&lt;:shapeless.HList]extendsSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -466,7 +514,7 @@ components of the intersection type from other existing components.</p><p>Note: 
       <span class="symbol">
         <a title="Type class witnessing the fact that L is a wellformed intersection type." href="package$$WF.html">
               <span class="name">WF</span>
-            </a><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+            </a><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">Type class witnessing the fact that L is a wellformed intersection type.</p>
@@ -534,7 +582,7 @@ components of the intersection type from other existing components.</p><p>Note: 
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
+        <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -550,7 +598,7 @@ components of the intersection type from other existing components.</p><p>Note: 
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
+        <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -575,7 +623,7 @@ it enabled.
       <span class="symbol">
         <a title="" href="package$$Compose$.html">
               <span class="name">Compose</span>
-            </a>
+            </a><span class="result"> extends <a href="package$$LowPrioCompose.html" class="extype" name="intersection.LowPrioCompose">LowPrioCompose</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -593,7 +641,7 @@ it enabled.
       <span class="symbol">
         <a title="" href="package$$Join$.html">
               <span class="name">Join</span>
-            </a>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -611,7 +659,7 @@ it enabled.
       <span class="symbol">
         <a title="" href="package$$Merge$.html">
               <span class="name">Merge</span>
-            </a>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -629,7 +677,7 @@ it enabled.
       <span class="symbol">
         <a title="" href="package$$Subtype$.html">
               <span class="name">Subtype</span>
-            </a><span class="result"> extends <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a></span>
+            </a><span class="result"> extends <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -647,7 +695,7 @@ it enabled.
       <span class="symbol">
         <a title="" href="package$$WF$.html">
               <span class="name">WF</span>
-            </a>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -686,6 +734,9 @@ it enabled.
               
             </div><div class="group" name="Wellformedness">
               <h3>Wellformedness</h3>
+              
+            </div><div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
               
             </div>
         </div>

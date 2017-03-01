@@ -112,8 +112,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -140,9 +140,21 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
+                        <a class="trait" href="package$$LowPrioCompose.html" title=""></a>
+                        <a href="package$$LowPrioCompose.html" title="">
+                          LowPrioCompose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
                         <a class="trait" href="package$$LowPrioSubtype.html" title=""></a>
                         <a href="package$$LowPrioSubtype.html" title="">
                           LowPrioSubtype
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$LowestPrioCompose.html" title=""></a>
+                        <a href="package$$LowestPrioCompose.html" title="">
+                          LowestPrioCompose
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Merge$.html" title=""></a>
@@ -199,7 +211,7 @@ by the services P1 provided by m1.">
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">WF</span><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+        <span class="name">WF</span><span class="tparams">[<span name="L">L &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -209,7 +221,7 @@ by the services P1 provided by m1.">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -235,7 +247,7 @@ by the services P1 provided by m1.">
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="intersection.WF"><span>WF</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="intersection.WF"><span>WF</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -606,7 +618,11 @@ by the services P1 provided by m1.">
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

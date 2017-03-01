@@ -112,8 +112,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -140,9 +140,21 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
+                        <a class="trait" href="package$$LowPrioCompose.html" title=""></a>
+                        <a href="package$$LowPrioCompose.html" title="">
+                          LowPrioCompose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
                         <a class="trait" href="package$$LowPrioSubtype.html" title=""></a>
                         <a href="package$$LowPrioSubtype.html" title="">
                           LowPrioSubtype
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$LowestPrioCompose.html" title=""></a>
+                        <a href="package$$LowestPrioCompose.html" title="">
+                          LowestPrioCompose
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Merge$.html" title=""></a>
@@ -199,7 +211,7 @@ by the services P1 provided by m1.">
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">Compose</span>
+        <span class="name">Compose</span><span class="result"> extends <a href="package$$LowPrioCompose.html" class="extype" name="intersection.LowPrioCompose">LowPrioCompose</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -208,7 +220,7 @@ by the services P1 provided by m1.">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="package$$LowPrioCompose.html" class="extype" name="intersection.LowPrioCompose">LowPrioCompose</a>, <a href="package$$LowestPrioCompose.html" class="extype" name="intersection.LowestPrioCompose">LowestPrioCompose</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -234,7 +246,7 @@ by the services P1 provided by m1.">
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="intersection.Compose"><span>Compose</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="intersection.Compose"><span>Compose</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="intersection.LowPrioCompose"><span>LowPrioCompose</span></li><li class="in" name="intersection.LowestPrioCompose"><span>LowestPrioCompose</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -341,23 +353,6 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="intersection.Compose#autoMatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="autoMatch[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}"></a><a id="autoMatch[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList,M0&lt;:HList,Rem0&lt;:HList](≺[M0,P1],Aux[M0,Rem0,R2],^[R1,Rem0]):Compose[R1,P1,R2,P2]{.../*3definitionsintyperefinement*/}"></a>
-      <span class="permalink">
-      <a href="../intersection/package$$Compose$.html#autoMatch[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">autoMatch</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="M0">M0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="Rem0">Rem0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="intersection.Compose.autoMatch.M0">M0</span>, <span class="extype" name="intersection.Compose.autoMatch.P1">P1</span>]</span>, <span name="merge">merge: <a href="package$$Merge$.html#Aux[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList,Out0&lt;:shapeless.HList]=intersection.package.Merge[L1,L2]{typeOut=Out0}" class="extmbr" name="intersection.Merge.Aux">Aux</a>[<span class="extype" name="intersection.Compose.autoMatch.M0">M0</span>, <span class="extype" name="intersection.Compose.autoMatch.Rem0">Rem0</span>, <span class="extype" name="intersection.Compose.autoMatch.R2">R2</span>]</span>, <span name="cm">cm: <a href="index.html#^[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Join[L1,L2]" class="extmbr" name="intersection.^">^</a>[<span class="extype" name="intersection.Compose.autoMatch.R1">R1</span>, <span class="extype" name="intersection.Compose.autoMatch.Rem0">Rem0</span>]</span>)</span><span class="result">: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.Compose.autoMatch.R1">R1</span>, <span class="extype" name="intersection.Compose.autoMatch.P1">P1</span>, <span class="extype" name="intersection.Compose.autoMatch.R2">R2</span>, <span class="extype" name="intersection.Compose.autoMatch.P2">P2</span>] { ... /* 3 definitions in type refinement */ }</span>
-      </span>
-      
-      <p class="shortcomment cmt">There is exactly one way to construct an instance of <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>
-</p>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -482,6 +477,55 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="intersection.LowPrioCompose#matchAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="matchAll[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](implicitmm:intersection.package.≺[R2,P1]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=shapeless.HNil;typeMatched=R2;typeReq=R1}"></a><a id="matchAll[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList](≺[R2,P1]):Compose[R1,P1,R2,P2]{.../*3definitionsintyperefinement*/}"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Compose$.html#matchAll[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](implicitmm:intersection.package.≺[R2,P1]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=shapeless.HNil;typeMatched=R2;typeReq=R1}" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">matchAll</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="intersection.LowPrioCompose.matchAll.R2">R2</span>, <span class="extype" name="intersection.LowPrioCompose.matchAll.P1">P1</span>]</span>)</span><span class="result">: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.LowPrioCompose.matchAll.R1">R1</span>, <span class="extype" name="intersection.LowPrioCompose.matchAll.P1">P1</span>, <span class="extype" name="intersection.LowPrioCompose.matchAll.R2">R2</span>, <span class="extype" name="intersection.LowPrioCompose.matchAll.P2">P2</span>] { ... /* 3 definitions in type refinement */ }</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="package$$LowPrioCompose.html" class="extype" name="intersection.LowPrioCompose">LowPrioCompose</a></dd></dl></div>
+    </li><li name="intersection.LowestPrioCompose#matchNone" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="matchNone[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](implicitcm:intersection.package.^[R1,R2]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=R2;typeMatched=shapeless.HNil;typeReq=cm.Out}"></a><a id="matchNone[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList](^[R1,R2]):Compose[R1,P1,R2,P2]{.../*3definitionsintyperefinement*/}"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Compose$.html#matchNone[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList](implicitcm:intersection.package.^[R1,R2]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=R2;typeMatched=shapeless.HNil;typeReq=cm.Out}" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">matchNone</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="cm">cm: <a href="index.html#^[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Join[L1,L2]" class="extmbr" name="intersection.^">^</a>[<span class="extype" name="intersection.LowestPrioCompose.matchNone.R1">R1</span>, <span class="extype" name="intersection.LowestPrioCompose.matchNone.R2">R2</span>]</span>)</span><span class="result">: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.LowestPrioCompose.matchNone.R1">R1</span>, <span class="extype" name="intersection.LowestPrioCompose.matchNone.P1">P1</span>, <span class="extype" name="intersection.LowestPrioCompose.matchNone.R2">R2</span>, <span class="extype" name="intersection.LowestPrioCompose.matchNone.P2">P2</span>] { ... /* 3 definitions in type refinement */ }</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="package$$LowestPrioCompose.html" class="extype" name="intersection.LowestPrioCompose">LowestPrioCompose</a></dd></dl></div>
+    </li><li name="intersection.Compose#matchPartial" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="matchPartial[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}"></a><a id="matchPartial[R1&lt;:HList,P1&lt;:HList,R2&lt;:HList,P2&lt;:HList,M0&lt;:HList,Rem0&lt;:HList](≺[M0,P1],Aux[M0,Rem0,R2],^[R1,Rem0]):Compose[R1,P1,R2,P2]{.../*3definitionsintyperefinement*/}"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Compose$.html#matchPartial[R1&lt;:shapeless.HList,P1&lt;:shapeless.HList,R2&lt;:shapeless.HList,P2&lt;:shapeless.HList,M0&lt;:shapeless.HList,Rem0&lt;:shapeless.HList](implicitmm:intersection.package.≺[M0,P1],implicitmerge:intersection.package.Merge.Aux[M0,Rem0,R2],implicitcm:intersection.package.^[R1,Rem0]):intersection.package.Compose[R1,P1,R2,P2]{typeRemaining=Rem0;typeMatched=M0;typeReq=cm.Out}" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">matchPartial</span><span class="tparams">[<span name="R1">R1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P1">P1 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="R2">R2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="P2">P2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="M0">M0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>, <span name="Rem0">Rem0 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="mm">mm: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="intersection.Compose.matchPartial.M0">M0</span>, <span class="extype" name="intersection.Compose.matchPartial.P1">P1</span>]</span>, <span name="merge">merge: <a href="package$$Merge$.html#Aux[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList,Out0&lt;:shapeless.HList]=intersection.package.Merge[L1,L2]{typeOut=Out0}" class="extmbr" name="intersection.Merge.Aux">Aux</a>[<span class="extype" name="intersection.Compose.matchPartial.M0">M0</span>, <span class="extype" name="intersection.Compose.matchPartial.Rem0">Rem0</span>, <span class="extype" name="intersection.Compose.matchPartial.R2">R2</span>]</span>, <span name="cm">cm: <a href="index.html#^[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Join[L1,L2]" class="extmbr" name="intersection.^">^</a>[<span class="extype" name="intersection.Compose.matchPartial.R1">R1</span>, <span class="extype" name="intersection.Compose.matchPartial.Rem0">Rem0</span>]</span>)</span><span class="result">: <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>[<span class="extype" name="intersection.Compose.matchPartial.R1">R1</span>, <span class="extype" name="intersection.Compose.matchPartial.P1">P1</span>, <span class="extype" name="intersection.Compose.matchPartial.R2">R2</span>, <span class="extype" name="intersection.Compose.matchPartial.P2">P2</span>] { ... /* 3 definitions in type refinement */ }</span>
+      </span>
+      
+      <p class="shortcomment cmt">There is exactly one way to construct an instance of <a href="package$$Compose.html" class="extype" name="intersection.Compose">Compose</a>
+</p>
     </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -638,7 +682,15 @@ by the services P1 provided by m1.">
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="intersection.LowPrioCompose">
+              <h3>Inherited from <a href="package$$LowPrioCompose.html" class="extype" name="intersection.LowPrioCompose">LowPrioCompose</a></h3>
+            </div><div class="parent" name="intersection.LowestPrioCompose">
+              <h3>Inherited from <a href="package$$LowestPrioCompose.html" class="extype" name="intersection.LowestPrioCompose">LowestPrioCompose</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>

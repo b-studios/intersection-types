@@ -112,8 +112,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -140,9 +140,21 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
+                        <a class="trait" href="package$$LowPrioCompose.html" title=""></a>
+                        <a href="package$$LowPrioCompose.html" title="">
+                          LowPrioCompose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
                         <a class="trait" href="package$$LowPrioSubtype.html" title=""></a>
                         <a href="package$$LowPrioSubtype.html" title="">
                           LowPrioSubtype
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$LowestPrioCompose.html" title=""></a>
+                        <a href="package$$LowestPrioCompose.html" title="">
+                          LowestPrioCompose
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Merge$.html" title=""></a>
@@ -199,7 +211,7 @@ by the services P1 provided by m1.">
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">Subtype</span><span class="result"> extends <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a></span>
+        <span class="name">Subtype</span><span class="result"> extends <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
 
@@ -208,7 +220,7 @@ by the services P1 provided by m1.">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -234,7 +246,7 @@ by the services P1 provided by m1.">
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="intersection.Subtype"><span>Subtype</span></li><li class="in" name="intersection.LowPrioSubtype"><span>LowPrioSubtype</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="intersection.Subtype"><span>Subtype</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="intersection.LowPrioSubtype"><span>LowPrioSubtype</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -513,6 +525,22 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="intersection.Subtype#nilSubtype" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="nilSubtype[L2&lt;:shapeless.HList]:intersection.package.≺[shapeless.HNil,L2]"></a><a id="nilSubtype[L2&lt;:HList]:≺[HNil,L2]"></a>
+      <span class="permalink">
+      <a href="../intersection/package$$Subtype$.html#nilSubtype[L2&lt;:shapeless.HList]:intersection.package.≺[shapeless.HNil,L2]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">nilSubtype</span><span class="tparams">[<span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="result">: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="shapeless.HNil">HNil</span>, <span class="extype" name="intersection.Subtype.nilSubtype.L2">L2</span>]</span>
+      </span>
+      
+      
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
@@ -545,22 +573,6 @@ by the services P1 provided by m1.">
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="intersection.Subtype#singletonSubtype" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="singletonSubtype[H,L2&lt;:shapeless.HList](implicitin:intersection.package.∈[H,L2]):intersection.package.≺[shapeless.::[H,shapeless.HNil],L2]"></a><a id="singletonSubtype[H,L2&lt;:HList](∈[H,L2]):≺[::[H,HNil],L2]"></a>
-      <span class="permalink">
-      <a href="../intersection/package$$Subtype$.html#singletonSubtype[H,L2&lt;:shapeless.HList](implicitin:intersection.package.∈[H,L2]):intersection.package.≺[shapeless.::[H,shapeless.HNil],L2]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">singletonSubtype</span><span class="tparams">[<span name="H">H</span>, <span name="L2">L2 &lt;: <span class="extype" name="shapeless.HList">HList</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="in">in: <span class="extype" name="intersection.∈">∈</span>[<span class="extype" name="intersection.Subtype.singletonSubtype.H">H</span>, <span class="extype" name="intersection.Subtype.singletonSubtype.L2">L2</span>]</span>)</span><span class="result">: <a href="index.html#≺[L1&lt;:shapeless.HList,L2&lt;:shapeless.HList]=intersection.package.Subtype[L1,L2]" class="extmbr" name="intersection.≺">≺</a>[<span class="extype" name="shapeless.::">::</span>[<span class="extype" name="intersection.Subtype.singletonSubtype.H">H</span>, <span class="extype" name="shapeless.HNil">HNil</span>], <span class="extype" name="intersection.Subtype.singletonSubtype.L2">L2</span>]</span>
-      </span>
-      
-      
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -685,7 +697,11 @@ by the services P1 provided by m1.">
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="intersection.LowPrioSubtype">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="intersection.LowPrioSubtype">
               <h3>Inherited from <a href="package$$LowPrioSubtype.html" class="extype" name="intersection.LowPrioSubtype">LowPrioSubtype</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>

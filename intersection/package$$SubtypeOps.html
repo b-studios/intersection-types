@@ -112,8 +112,8 @@ explicitly selected at the moment. The same is true for subtyping
 relationships between intersection types:</p><pre><span class="kw">val</span> y2: <span class="std">Boolean</span> :: HNil = subsume[<span class="std">Boolean</span> :: HNil, <span class="std">Int</span> :: <span class="std">Boolean</span> :: HNil](both)</pre><p>We hope to work around this issue in future releases.</p><h4>Implementation</h4><p>The implementation keeps the invariant, that a type may only occur once
 in an intersection (also see wellformedness, <a href="package$$WF.html" class="extype" name="intersection.WF">WF</a>). Also the order
 of elements in the HLists can be arbitrary, effectively
-implementing type level sets.</p><p><i>Design decision</i>: Right now, only HLists that contain at least one element are
-considered a wellformed intersection type. The alternative would be to also
+implementing type level sets.</p><p><i>Design decision</i>: Right now, also emtpy HLists are considered wellformed
+intersection types. The alternative would be to only allow singleton
 allow for empty intersections (see code which is commented out).</p><p>We also don't account for subtypes, yet. So if <code>B &lt;: A</code> and we have a list
 of type <code>L = B :: HNil</code>, we cannot select an <code>A</code> from it.
 This is a consequence of Selector being defined invariant in shapeless.
@@ -140,9 +140,21 @@ by the services P1 provided by m1.">
                         </a>
                       </li><li class="current-entities indented1">
                         <span class="separator"></span>
+                        <a class="trait" href="package$$LowPrioCompose.html" title=""></a>
+                        <a href="package$$LowPrioCompose.html" title="">
+                          LowPrioCompose
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
                         <a class="trait" href="package$$LowPrioSubtype.html" title=""></a>
                         <a href="package$$LowPrioSubtype.html" title="">
                           LowPrioSubtype
+                        </a>
+                      </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="package$$LowestPrioCompose.html" title=""></a>
+                        <a href="package$$LowestPrioCompose.html" title="">
+                          LowestPrioCompose
                         </a>
                       </li><li class="current-entities indented1">
                         <a class="object" href="package$$Merge$.html" title=""></a>

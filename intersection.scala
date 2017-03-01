@@ -467,6 +467,11 @@ package object intersection extends DocTrait {
     subtype[
       Boolean :: String :: HNil,
       String :: Int :: Boolean :: HNil]
+
+    subtype[
+      HNil,
+      String :: Int :: Boolean :: HNil]
+
   }
 
   private object joinTests {

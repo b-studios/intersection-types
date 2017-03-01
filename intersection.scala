@@ -193,12 +193,12 @@ package object intersection extends DocTrait {
    *
    * @group Subtyping
    */
-  implicit def subsume[L1 <: HList, L2 <: HList](l2: L2)(implicit s: L1 ≺ L2): L1 = s(l2)
+  def subsume[L1 <: HList, L2 <: HList](l2: L2)(implicit s: L1 ≺ L2): L1 = s(l2)
 
   /**
    * @group Subtyping
    */
-  implicit def autoProject[T, L <: HList](l: L)(implicit s: T ∈ L): T = s(l)
+  def autoProject[T, L <: HList](l: L)(implicit s: T ∈ L): T = s(l)
 
   /**
    * @group Subtyping

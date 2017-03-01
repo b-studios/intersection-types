@@ -383,10 +383,51 @@ package object intersection extends DocTrait {
     def req: R1 ≺ Req
   }
 
+  trait LowestPrioCompose {
+
+    // M0 = HNil, Rem0 = R2 none of the requirements can be matched by the output
+    // of m1.
+    implicit def matchNone[
+      R1 <: HList, P1 <: HList,
+      R2 <: HList, P2 <: HList
+    ](implicit
+      cm: R1 ^ R2
+    ) = new Compose[R1, P1, R2, P2] {
+      type Remaining = R2
+      type Matched = HNil
+      type Req = cm.Out
+
+      def apply(m1: R1 => P1, m2: R2 => P2): Req => P2 = req => m2(cm right req)
+      def req: R1 ≺ Req = Subtype.witness(req => cm left req)
+    }
+  }
+  trait LowPrioCompose extends LowestPrioCompose {
+    // Rem0 = HNil
+    // That is all requirements of R2 can be fulfilled by m1
+    implicit def matchAll[
+    R1 <: HList, P1 <: HList,
+    R2 <: HList, P2 <: HList
+    ](implicit
+      mm: R2 ≺ P1
+    ) = new Compose[R1, P1, R2, P2] {
+      type Remaining = HNil
+      type Matched = R2
+      type Req = R1
+
+      def apply(m1: R1 => P1, m2: R2 => P2): Req => P2 = req => {
+        val resL: P1 = m1(req)
+        val reqR: R2 = mm(resL)
+        m2(reqR)
+      }
+
+      def req: R1 ≺ Req = Subtype.witness(req => req)
+    }
+  }
+
   /**
    * @group Module Composition
    */
-  object Compose {
+  object Compose extends LowPrioCompose {
 
     /**
      * Function to compose two modules, using an instance of [[Compose]].
@@ -398,7 +439,7 @@ package object intersection extends DocTrait {
     /**
      * There is exactly one way to construct an instance of [[Compose]]
      */
-    implicit def autoMatch[
+    implicit def matchPartial[
       R1 <: HList, P1 <: HList,
       R2 <: HList, P2 <: HList,
       M0 <: HList, Rem0 <: HList
@@ -572,6 +613,43 @@ package object intersection extends DocTrait {
   private object composeTests {
     val m1: (String :: HNil) => (String :: HNil) = n => n.at(0) + "!"
     val m2: (String :: HNil) => (Int :: HNil)    = n => n.at(0).size
+
+    // compose empty modules
+    implicitly[Compose[
+      HNil, HNil,
+      HNil, HNil] { type Out = HNil => HNil }]
+
+    // propagate dependencies
+    implicitly[Compose[
+      String :: HNil, HNil,
+      HNil, HNil] { type Out = String :: HNil => HNil }]
+
+    // ignore additional results
+    implicitly[Compose[
+      HNil, String :: HNil,
+      HNil, HNil] { type Out = HNil => HNil }]
+
+    implicitly[Compose[
+      HNil, String :: HNil,
+      String :: HNil, HNil] { type Out = HNil => HNil }]
+
+    implicitly[Compose[
+      String :: HNil, String :: HNil,
+      HNil, HNil] { type Out = String :: HNil => HNil }]
+
+    implicitly[Compose[
+      String :: HNil, Int :: HNil,
+      HNil, HNil] { type Out = String :: HNil => HNil }]
+
+    implicitly[Compose[
+      String :: HNil, Int :: HNil,
+      Int :: HNil, HNil] { type Out = String :: HNil => HNil }]
+
+    implicitly[Compose[
+      String :: Int :: HNil, String :: HNil,
+      Int :: HNil, Boolean :: HNil] {
+      type Out = String :: Int :: HNil => Boolean :: HNil
+    }]
 
     val res: (String :: HNil) => (Int :: HNil) = m1 &> m2
     val y: Int = res("hello world" :: HNil).at(0)

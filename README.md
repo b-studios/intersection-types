@@ -1,4 +1,6 @@
 # Intersection Types implemented by HLists
+[![Build Status](https://travis-ci.org/b-studios/intersection-types.svg?branch=master)](https://travis-ci.org/b-studios/intersection-types)
+
 This small library implements an embedding of user defined intersection
 types by encoding them as HLists. The approach is similar to Dunfield's
 elaboration to LC with tuples.

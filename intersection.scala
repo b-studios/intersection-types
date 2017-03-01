@@ -95,7 +95,7 @@ package object intersection extends DocTrait {
    *
    * @group Wellformedness
    */
-  sealed trait WF[L <: HList]
+  sealed trait WF[L <: HList] extends Serializable
 
   /**
    * @group Wellformedness
@@ -133,7 +133,7 @@ package object intersection extends DocTrait {
    *
    * @group Subtyping
    */
-  sealed trait Subtype[L1 <: HList, L2 <: HList] {
+  sealed trait Subtype[L1 <: HList, L2 <: HList] extends Serializable {
     def apply(l: L2): L1
   }
 
@@ -217,7 +217,7 @@ package object intersection extends DocTrait {
    *
    * @group Joining
    */
-  sealed trait Join[L1 <: HList, L2 <: HList] {
+  sealed trait Join[L1 <: HList, L2 <: HList] extends Serializable  {
     type Out <: HList
     def left: L1 ≺ Out
     def right: L2 ≺ Out
@@ -364,7 +364,7 @@ package object intersection extends DocTrait {
    *
    * @group Module Composition
    */
-  trait Compose[R1 <: HList, P1 <: HList, R2 <: HList, P2 <: HList] {
+  trait Compose[R1 <: HList, P1 <: HList, R2 <: HList, P2 <: HList] extends Serializable {
     type Matched <: HList
     type Remaining <: HList
     type Req <: HList

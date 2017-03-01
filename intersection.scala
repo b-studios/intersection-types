@@ -270,7 +270,7 @@ package object intersection extends DocTrait {
   /**
    * @group Merging
    */
-  sealed trait Merge[L1 <: HList, L2 <: HList] extends Join[L1, L2] {
+  trait Merge[L1 <: HList, L2 <: HList] extends Join[L1, L2] {
     type Out <: HList
     def apply(l1: L1, l2: L2): Out
   }

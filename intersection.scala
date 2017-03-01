@@ -76,8 +76,8 @@ package intersection {
  * of elements in the HLists can be arbitrary, effectively
  * implementing type level sets.
  *
- * ''Design decision'': Right now, only HLists that contain at least one element are
- * considered a wellformed intersection type. The alternative would be to also
+ * ''Design decision'': Right now, also emtpy HLists are considered wellformed
+ * intersection types. The alternative would be to only allow singleton
  * allow for empty intersections (see code which is commented out).
  *
  * We also don't account for subtypes, yet. So if `B <: A` and we have a list
@@ -104,15 +104,15 @@ package object intersection extends DocTrait {
 
     private def witness[L <: HList]: WF[L] = new WF[L] {}
 
-//    implicit val wfNil:
+    implicit val wfNil:
+
+    //  --------
+        WF[HNil]   = witness
+
+//    implicit def wfSingleton[H]:
 //
-//    //  --------
-//        WF[HNil]   = witness
-
-    implicit def wfSingleton[H]:
-
-    //      -------------
-            WF[H :: HNil]       = witness
+//    //      -------------
+//            WF[H :: HNil]       = witness
 
     implicit def wfCons[H, L <: HList](implicit
 
@@ -158,16 +158,16 @@ package object intersection extends DocTrait {
       def apply(l: L2) = f(l)
     }
 
-//    implicit def nilSubtype[L2 <: HList]:
+    implicit def nilSubtype[L2 <: HList]:
+
+    //  -----------
+        HNil ≺ L2   = witness(_ => HNil)
+
+//    implicit def singletonSubtype[H, L2 <: HList](implicit
 //
-//    //  -----------
-//        HNil ≺ L2   = witness(_ => HNil)
-
-    implicit def singletonSubtype[H, L2 <: HList](implicit
-
-             in:  H ∈ L2
-      //    ----------------
-    ):      (H :: HNil) ≺ L2         = witness(l2 => in(l2) :: HNil)
+//             in:  H ∈ L2
+//      //    ----------------
+//    ):      (H :: HNil) ≺ L2         = witness(l2 => in(l2) :: HNil)
 
     implicit def consSubtype[H, L1 <: HList, L2 <: HList](implicit
 
@@ -288,30 +288,31 @@ package object intersection extends DocTrait {
 
     def apply[L1 <: HList, L2 <: HList](l1: L1, l2: L2)(implicit m: Merge[L1, L2]): m.Out = m(l1, l2)
 
-//    implicit def nilMerge[L <: HList]:
-//
-//    //  ---------------------
-//        Merge.Aux[HNil, L, L]
-//
-//      = new Merge[HNil, L] {
-//        type Out = L
-//        def apply(l1: HNil, l2: L): Out = l2
-//
-//        override def left = HNil
-//      }
+    implicit def nilMerge[L <: HList]:
 
-    implicit def singletonMerge[H, L <: HList](implicit
+    //  ---------------------
+        Merge.Aux[HNil, L, L]
 
-      notIn: H ∉ L
-      //  -------------------------------
-    ):    Merge.Aux[H :: HNil, L, H :: L]
+      = new Merge[HNil, L] {
+        type Out = L
+        def apply(l1: HNil, l2: L): Out = l2
 
-    = new Merge[H :: HNil, L] {
-      type Out = H :: L
-      def apply(l1: H :: HNil, l2: L): Out = l1.head :: l2
-      def left: (H :: HNil) ≺ Out = Subtype.witness(o => o.head :: HNil)
-      def right: L ≺ Out          = Subtype.witness(o => o.tail)
-    }
+        override def left: HNil ≺ Out = Subtype.witness(l => HNil)
+        override def right: L ≺ Out = Subtype.witness(l => l)
+      }
+
+//    implicit def singletonMerge[H, L <: HList](implicit
+//
+//      notIn: H ∉ L
+//      //  -------------------------------
+//    ):    Merge.Aux[H :: HNil, L, H :: L]
+//
+//    = new Merge[H :: HNil, L] {
+//      type Out = H :: L
+//      def apply(l1: H :: HNil, l2: L): Out = l1.head :: l2
+//      def left: (H :: HNil) ≺ Out = Subtype.witness(o => o.head :: HNil)
+//      def right: L ≺ Out          = Subtype.witness(o => o.tail)
+//    }
 
     // The simplest merge, forbid double occurrences
     implicit def consMergeProhibitive[H, L1 <: HList, L2 <: HList](implicit
@@ -510,6 +511,11 @@ package object intersection extends DocTrait {
   }
 
   private object mergeTests {
+
+    implicitly[Merge.Aux[HNil, HNil, HNil]]
+
+    implicitly[Merge.Aux[HNil, String :: HNil, String :: HNil]]
+    implicitly[Merge.Aux[String :: HNil, HNil, String :: HNil]]
 
     implicitly[Merge.Aux[
       Int :: HNil,
